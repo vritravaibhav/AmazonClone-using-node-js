@@ -1,7 +1,9 @@
 import 'package:amazonclone/common/widgets/custom_button.dart';
 import 'package:amazonclone/common/widgets/textfield.dart';
 import 'package:amazonclone/constants/global_variable.dart';
+import 'package:amazonclone/features/auth/services/auth_services.dart';
 import 'package:flutter/material.dart';
+import 'package:amazonclone/features/auth/services/auth_services.dart';
 
 enum Auth { signin, signup }
 
@@ -16,6 +18,7 @@ class _AuthScreenState extends State<AuthScreen> {
   Auth _auth = Auth.signup;
   final _signUpFormKey = GlobalKey<FormState>();
   final _signInFormKey = GlobalKey<FormState>();
+  final AuthService authService = AuthService();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
@@ -26,6 +29,14 @@ class _AuthScreenState extends State<AuthScreen> {
     _emailController.dispose();
     _passController.dispose();
     _passController.dispose();
+  }
+
+  void signUpuser() {
+    authService.signUpUser(
+        context: context,
+        email: _emailController.text,
+        name: _nameController.text,
+        password: _passController.text);
   }
 
   @override
@@ -83,8 +94,10 @@ class _AuthScreenState extends State<AuthScreen> {
                     height: 10,
                   ),
                   AmazonButton(
-                    name: "Sign in",
-                    onTap: () {},
+                    name: "Sign up",
+                    onTap: () {
+                       signUpuser();
+                    },
                   ),
                 ]),
               ),
@@ -130,8 +143,10 @@ class _AuthScreenState extends State<AuthScreen> {
                     height: 10,
                   ),
                   AmazonButton(
-                    name: 'Sign up',
-                    onTap: () {},
+                    name: 'Sign in',
+                    onTap: () {
+                     
+                    },
                   ),
                 ]),
               ),
