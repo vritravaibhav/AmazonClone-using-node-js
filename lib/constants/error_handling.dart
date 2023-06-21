@@ -11,8 +11,8 @@ void httpErrorHandle({
 }) {
   switch (response.statusCode) {
     case 200:
-    //onSucccess,
-      showSnackbar(context, "Successfully Registered");
+      onSucccess();
+      // showSnackbar(context, "Successfully Registered");
       break;
     case 400:
       showSnackbar(context, jsonDecode(response.body)['msg']);

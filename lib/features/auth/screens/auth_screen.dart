@@ -26,9 +26,9 @@ class _AuthScreenState extends State<AuthScreen> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    _emailController.dispose();
-    _passController.dispose();
-    _passController.dispose();
+    // _emailController.dispose();
+    // _passController.dispose();
+    // _passController.dispose();
   }
 
   void signUpuser() {
@@ -36,6 +36,13 @@ class _AuthScreenState extends State<AuthScreen> {
         context: context,
         email: _emailController.text,
         name: _nameController.text,
+        password: _passController.text);
+  }
+
+  void signInUser() {
+    authService.signInUser(
+        context: context,
+        email: _emailController.text,
         password: _passController.text);
   }
 
@@ -96,7 +103,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   AmazonButton(
                     name: "Sign up",
                     onTap: () {
-                       signUpuser();
+                      signUpuser();
                     },
                   ),
                 ]),
@@ -145,7 +152,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   AmazonButton(
                     name: 'Sign in',
                     onTap: () {
-                     
+                      signInUser();
                     },
                   ),
                 ]),
