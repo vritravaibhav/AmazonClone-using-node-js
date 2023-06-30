@@ -1,6 +1,7 @@
 import 'package:amazonclone/constants/global_variable.dart';
 import 'package:amazonclone/features/auth/screens/auth_screen.dart';
 import 'package:amazonclone/features/auth/services/auth_services.dart';
+import 'package:amazonclone/home/screens/home_screens.dart';
 import 'package:amazonclone/provider/user_provider.dart';
 import 'package:amazonclone/router.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    authService.getUserData(context);
   }
 
   @override
@@ -42,7 +44,10 @@ class _MyAppState extends State<MyApp> {
           primarySwatch: Colors.blue,
         ),
         onGenerateRoute: ((settings) => generateRoute(settings)),
-        home: const AuthScreen()
+        home:Provider.of<UserProvider>(context).user.token.isNotEmpty ?
+        const HomeScreen()
+         :
+          const AuthScreen()
         //
         );
   }

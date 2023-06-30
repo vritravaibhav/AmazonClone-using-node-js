@@ -3,6 +3,7 @@ const User = require("../models/user");
 const authRouter = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const auth = require("../middlewares/auth");
 //  authRouter.get("/user", (req,res)=>{
 //     res.json({msg:"rivaan"});
 
@@ -94,7 +95,10 @@ authRouter.post("/api/signup", async (req, res) => {
     });
 
     //get user data
-    //authRouter.get('/',auth)
+    authRouter.get("/", auth,async (req,res)=>{
+        const user = await User.findById(req.user);
+        res.json({...user._doc,token:req.token});
+    });
 
 
 

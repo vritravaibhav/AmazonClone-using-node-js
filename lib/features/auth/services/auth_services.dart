@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:js_interop';
+//import 'dart:js_interop';
 
 import 'package:amazonclone/constants/error_handling.dart';
 import 'package:amazonclone/constants/utils.dart';
@@ -115,16 +115,25 @@ class AuthService {
       if (token == null) {
         prefs.setString('x-auth-token', "");
       }
-      var toeknRes = await http.post(
+      var tokenRes = await http.post(
         Uri.parse('$uri/tokenIsValid'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': token!,
         },
       );
-      var response = jsonDecode(toeknRes.body);
-      if(response==true){
-      //get user data
+      var response = jsonDecode(tokenRes.body);
+      if (response == true) {
+        //get user data
+        http.Response userRes = await http.get(
+          Uri.parse('$uri/'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': token,
+          },
+        );
+        var userProvider = Provider.of<UserProvider>(context, listen: false);
+        userProvider.setUser(userRes.body);
       }
 
       // http.Response res = await http.post(
