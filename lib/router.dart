@@ -8,10 +8,9 @@ Route<dynamic> generateRoute(RouteSettings routesettings) {
       return MaterialPageRoute(
           settings: routesettings, builder: (_) => const AuthScreen());
 
-
     case HomeScreen.routeName:
       return MaterialPageRoute(
-          settings: routesettings, builder: (_) =>  HomeScreen());
+          settings: routesettings, builder: (_) => const HomeScreen());
     default:
       return MaterialPageRoute(
           builder: (_) => const Scaffold(

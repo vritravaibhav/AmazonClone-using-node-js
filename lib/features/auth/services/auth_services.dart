@@ -64,23 +64,6 @@ class AuthService {
         },
       );
 
-      // Navigator.pushNamedAndRemoveUntil(
-      //     context, HomeScreen.routeName, (route) => false);
-
-      // httpErrorHandle(
-      //     response: res,
-      //     context: context,
-      //     onSucccess: () async {
-      //       //  showSnackbar(context, "Successfully LOGGED IN");
-
-      //       SharedPreferences prefs = await SharedPreferences.getInstance();
-      //       Provider.of<UserProvider>(context, listen: false).setUser(res.body);
-      //       await prefs.setString(
-      //           'x-auth-token', jsonDecode(res.body)['token']);
-      //       Navigator.pushNamedAndRemoveUntil(
-      //           context, HomeScreen.routeName, (route) => false);
-      //     });
-
       httpErrorHandle(
           response: res,
           context: context,
@@ -89,6 +72,7 @@ class AuthService {
             Provider.of<UserProvider>(context, listen: false).setUser(res.body);
             await prefs.setString(
                 'x-auth-token', jsonDecode(res.body)['token']);
+            // print(prefs.getString('x-auth-token'));
 
             Navigator.pushNamedAndRemoveUntil(
               context,
@@ -98,7 +82,7 @@ class AuthService {
           });
 
       print(res.statusCode);
-      print("vaibhav");
+      print("vaibhavlol");
     } catch (e) {
       showSnackbar(context, e.toString());
       print("good");
@@ -113,8 +97,11 @@ class AuthService {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? token = prefs.getString('x-auth-token');
       if (token == null) {
-        prefs.setString('x-auth-token', "");
+        prefs.setString('x-auth-token', '');
       }
+      //print("vaibhavhshshsh");
+      print(token);
+      // print('$uri/tokenIsValid');
       var tokenRes = await http.post(
         Uri.parse('$uri/tokenIsValid'),
         headers: <String, String>{
@@ -122,9 +109,11 @@ class AuthService {
           'x-auth-token': token!,
         },
       );
+
       var response = jsonDecode(tokenRes.body);
+      // print(tokenRes.body.toString());
       if (response == true) {
-        //get user data
+        print('$uri/');
         http.Response userRes = await http.get(
           Uri.parse('$uri/'),
           headers: <String, String>{
@@ -164,7 +153,7 @@ class AuthService {
       //     });
 
       // print(res.statusCode);
-      print("vaibhav");
+      print("vaibhavhaha");
     } catch (e) {
       showSnackbar(context, e.toString());
       print("good");

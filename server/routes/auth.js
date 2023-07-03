@@ -71,23 +71,32 @@ authRouter.post("/api/signup", async (req, res) => {
 
     authRouter.post("/tokenIsValid",async (req, res)=>{
        try {
-        const token = req.header('x-auth-token');
+        const token = req.header("x-auth-token");
+        console.log("goofy");
         if(!token){
+           //
+           //console.log("kya re hastinapur");
             return res.json(false);
-        
+       
           }
-          const isverified =   jwt.verify(token,"passwordKey");
+         
+          const isverified =   jwt.verify(token,"passwordkey");
+          
           if(!isverified){
+            console.log("goofyj");
             return res.json(false);
         }
+        
 
             //problem could lies here
             const user = await User.findById(isverified.id);
             if(!user){
+                console.log("kya re");
                 return res.json(false);
 
             }
-            return res.json(true);
+             console.log("goofyhj");
+             res.json(true);
 
        } catch (e) {
         res.status(500).json({error:e.message});
@@ -95,11 +104,10 @@ authRouter.post("/api/signup", async (req, res) => {
     });
 
     //get user data
-    authRouter.get("/", auth,async (req,res)=>{
+    authRouter.get("/", auth, async (req, res) => {
+        console.log("haha");
         const user = await User.findById(req.user);
-        res.json({...user._doc,token:req.token});
-    });
-
-
-
-module.exports = authRouter;
+        res.json({ ...user._doc, token: req.token });
+      });
+      
+      module.exports = authRouter;
